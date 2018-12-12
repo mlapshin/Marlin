@@ -205,7 +205,7 @@
 //===========================================================================
 /**
  * --NORMAL IS 4.7kohm PULLUP!-- 1kohm pullup can be used on hotend sensor, using correct resistor and table
- * 
+ *
  * Temperature sensors available:
  *
  *    -3 : thermocouple with MAX31855 (only for sensor 0)
@@ -230,13 +230,13 @@
  *    60 : 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
  *    66 : 4.7M High Temperature thermistor from Dyze Design
  *    70 : the 100K thermistor found in the bq Hephestos 2
- * 
+ *
  *       1k ohm pullup tables - This is atypical, and requires changing out the 4.7k pullup for 1k.
  *                              (but gives greater accuracy and more stable PID)
  *    51 : 100k thermistor - EPCOS (1k pullup)
  *    52 : 200k thermistor - ATC Semitec 204GT-2 (1k pullup)
  *    55 : 100k thermistor - ATC Semitec 104GT-2 (Used in ParCan & J-Head) (1k pullup)
- * 
+ *
  *  1047 : Pt1000 with 4k7 pullup
  *  1010 : Pt1000 with 1k pullup (non standard)
  *   147 : Pt100 with 4k7 pullup
@@ -309,9 +309,9 @@
   #define K1 0.95 //smoothing factor within the PID
 
   // My Prusa
-  #define  DEFAULT_Kp 32.50
-  #define  DEFAULT_Ki 1.85
-  #define  DEFAULT_Kd 142.98
+  #define  DEFAULT_Kp 33.81
+  #define  DEFAULT_Ki 2.46
+  #define  DEFAULT_Kd 116.34
 
 #endif // PIDTEMP
 
@@ -327,7 +327,7 @@
 // If your configuration is significantly different than this and you don't understand the issues involved, you probably
 // shouldn't use bed PID until someone else verifies your hardware works.
 // If this is enabled, find your own PID constants below.
-//#define PIDTEMPBED
+#define PIDTEMPBED
 
 //#define BED_LIMIT_SWITCHING
 
@@ -343,9 +343,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define  DEFAULT_bedKp 166.68
-  #define  DEFAULT_bedKi 10.80
-  #define  DEFAULT_bedKd 643.13
+  #define  DEFAULT_bedKp 124.24
+  #define  DEFAULT_bedKi 6.26
+  #define  DEFAULT_bedKd 616.80
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -470,7 +470,9 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {55.17,55.17,4000,665.9}
+
+/* extruder 1/16 steps: 627.8 */
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {100.0,54.37,4000,313.9}
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -672,7 +674,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true
-#define INVERT_Y_DIR false
+#define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
 
 // @section extruder
@@ -692,7 +694,7 @@
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1, 1]
 #define X_HOME_DIR -1
-#define Y_HOME_DIR 1
+#define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
 #define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
@@ -701,7 +703,7 @@
 // Travel limits after homing
 #define X_MAX_POS 200
 #define X_MIN_POS 0
-#define Y_MAX_POS 165
+#define Y_MAX_POS 178
 #define Y_MIN_POS 0
 #define Z_MAX_POS 180
 #define Z_MIN_POS 0
@@ -808,10 +810,10 @@
     // The height can be set with M420 Z<height>
     #define ENABLE_LEVELING_FADE_HEIGHT
 
-    // 
+    //
     // Experimental Subdivision of the grid by Catmull-Rom method.
     // Synthesizes intermediate points to produce a more detailed mesh.
-    // 
+    //
     //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
