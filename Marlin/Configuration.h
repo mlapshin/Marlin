@@ -449,6 +449,7 @@
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
 #define BED_MAXTEMP      150
+#define MAX_OVERSHOOT_PID_AUTOTUNE 80
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -473,9 +474,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  #define DEFAULT_Kp 11.41
-  #define DEFAULT_Ki 0.64
-  #define DEFAULT_Kd 50.70
+  #define DEFAULT_Kp 11.13
+  #define DEFAULT_Ki 0.66
+  #define DEFAULT_Kd 46.57
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -715,14 +716,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 1604, 96 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 1604, 100 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 100, 100, 2, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 7, 100 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -735,7 +736,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 50, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 6000, 6000, 3000, 6000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -750,9 +751,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          5000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          6000    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  6000    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   6000    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -762,11 +763,12 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
+
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 20.0
-  #define DEFAULT_YJERK 20.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_XJERK 35.0
+  #define DEFAULT_YJERK 35.0
+  #define DEFAULT_ZJERK 35.0
 
   //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
@@ -774,7 +776,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    25.0  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1300,8 +1302,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 45
-#define MANUAL_Y_HOME_POS 94
+#define MANUAL_X_HOME_POS 0
+#define MANUAL_Y_HOME_POS 0
 #define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -1316,13 +1318,13 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT 190    // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT 270    // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT 150    // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_Y_POINT 190    // Y point for Z homing when homing all axes (G28).
 #endif
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (4*60)
+#define HOMING_FEEDRATE_Z  (5*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
